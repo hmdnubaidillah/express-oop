@@ -1,25 +1,27 @@
 import { Schema, model } from "mongoose";
+import bcrypt from "bcrypt";
 
 const UserSchema = new Schema({
-  firstName: {
+  firstname: {
     type: String,
-    required: true,
+    required: [true, "First name is required"],
   },
 
-  lastName: {
+  lastname: {
     type: String,
-    required: true,
+    required: [true, "Last name is required"],
   },
 
   username: {
     type: String,
-    required: true,
+    required: [true, "Username is required"],
     minLength: [3, "Username length must be a minimum of 3 characters."],
+    unique: true,
   },
 
   password: {
     type: String,
-    required: true,
+    required: [true, "Password is required"],
     minLength: [8, "Password length must be a minimum of 8 characters."],
   },
 
@@ -27,6 +29,12 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+});
+
+UserSchema.pre("save", async function (next) {
+  const salt = await bcrypt.genSalt();
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
 });
 
 export const User = model("User", UserSchema);
