@@ -1,34 +1,31 @@
-import express from "express";
-import { Application } from "express-serve-static-core";
-import Connection from "../config/db.connection.js";
 import "dotenv/config";
-
-// routes
-import { UserRoutes } from "./User/user.routes.js";
+import express, { Application } from "express";
+import Database from "./database/db.js";
+import routesUser from "./routes/routes.user.js";
 
 class App {
   public app: Application = express();
-
-  public userRouter: UserRoutes = new UserRoutes();
-  public connection: Connection = new Connection();
+  private database = new Database();
 
   constructor() {
-    // initiate config method when App class is called
-    this.config();
+    // server init
+    this.server();
 
-    // connect to db
-    this.connection;
+    // route init
+    this.routes();
 
-    // routing
-    this.userRouter.routes(this.app);
+    this.database.connect();
   }
 
-  config() {
+  private server(): void {
     this.app.use(express.json());
 
-    // set port
-    this.app.set("PORT", 5000);
+    this.app.use(express.static("public"));
+  }
+
+  private routes(): void {
+    this.app.use(`/user`, routesUser);
   }
 }
-// immediate run App class when imported
+
 export default new App().app;

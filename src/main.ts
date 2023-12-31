@@ -1,9 +1,10 @@
 import app from "./api/server.js";
 
-// server config
-function startApp() {
-  app.listen(app.get("PORT"));
-  console.log(`Server running on port ${app.get("PORT")}`);
+// start the server
+function startApp(): void {
+  const port = 5000;
+  app.listen(port);
+  console.log("Server is running in port", port);
 }
 
 startApp();
