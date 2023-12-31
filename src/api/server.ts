@@ -14,6 +14,7 @@ class App {
     // route init
     this.routes();
 
+    // database connect
     this.database.connect();
   }
 
