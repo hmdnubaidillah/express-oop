@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { ApiResponse, apiResponse } from "../helpers/helper.apiResponse.js";
 import { StatusCodes as status } from "http-status-codes";
 import { hashPassword, comparePassword } from "../libs/lib.bcrypt.js";
+import { signToken } from "../libs/lib.jwt.js";
 
 export class ServiceUser {
   async findAllUserService(req: Request, res: Response): Promise<ApiResponse> {
@@ -63,7 +64,9 @@ export class ServiceUser {
         throw apiResponse(status.FORBIDDEN, "Password incorrect");
       }
 
-      return Promise.resolve(apiResponse(status.OK, "Login success", user));
+      const token = await signToken(user._id);
+
+      return Promise.resolve(apiResponse(status.OK, "Login success", { user, token }));
     } catch (error: any) {
       console.log(error);
 

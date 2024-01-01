@@ -38,7 +38,7 @@ export class ControllerUser extends ServiceUser {
     }
   }
 
-  async authUserController(req: Request, res: Response) {
+  async authUserController(req: Request, res: Response): Promise<OutgoingMessage> {
     try {
       const serviceResponds: ApiResponse = await super.userAuthService(req, res);
 
