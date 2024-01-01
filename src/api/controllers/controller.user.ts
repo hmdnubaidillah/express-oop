@@ -9,16 +9,6 @@ export class ControllerUser extends ServiceUser {
     super();
   }
 
-  async findAllUserController(req: Request, res: Response): Promise<OutgoingMessage> {
-    try {
-      const serviceResponds: ApiResponse = await super.findAllUserService(req, res);
-
-      return res.status(serviceResponds.statusCode).json(serviceResponds);
-    } catch (error: any) {
-      return res.status(error.statusCode).json(error);
-    }
-  }
-
   async findUserController(req: Request, res: Response): Promise<OutgoingMessage> {
     try {
       const serviceResponds: ApiResponse = await super.findUserService(req, res);

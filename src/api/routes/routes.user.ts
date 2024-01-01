@@ -9,7 +9,6 @@ class UserRoute extends ControllerUser {
   }
 
   public routes(): Router {
-    this.router.get("/", this.findAllUserController);
     this.router.get("/:id", this.findUserController);
     this.router.post("/register", this.registerUserController);
     this.router.post("/login", this.authUserController);

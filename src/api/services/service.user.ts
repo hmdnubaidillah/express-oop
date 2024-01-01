@@ -6,17 +6,6 @@ import { hashPassword, comparePassword } from "../libs/lib.bcrypt.js";
 import { signToken } from "../libs/lib.jwt.js";
 
 export class ServiceUser {
-  async findAllUserService(req: Request, res: Response): Promise<ApiResponse> {
-    try {
-      const users = await User.find();
-
-      return Promise.resolve(apiResponse(status.OK, "Successfully get all users", users));
-    } catch (error: any) {
-      console.log(error);
-      return Promise.reject(apiResponse(status.NOT_FOUND, "Cant get all users", error.message));
-    }
-  }
-
   async findUserService(req: Request, res: Response) {
     try {
       const user = await User.findById(req.params.id);
