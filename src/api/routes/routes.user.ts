@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { ControllerUser } from "../controllers/controller.user.js";
 
-class UserRoute extends ControllerUser {
+class UserRoutes extends ControllerUser {
   private router: Router;
   constructor() {
     super();
@@ -17,4 +17,4 @@ class UserRoute extends ControllerUser {
   }
 }
 
-export default new UserRoute().routes();
+export default new UserRoutes().routes();
