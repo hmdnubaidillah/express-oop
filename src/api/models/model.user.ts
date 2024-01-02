@@ -4,17 +4,20 @@ const UserSchema = new Schema({
   firstname: {
     type: String,
     required: [true, "First name is required"],
+    lowercase: true,
   },
 
   lastname: {
     type: String,
     required: [true, "Last name is required"],
+    lowercase: true,
   },
 
   username: {
     type: String,
     required: [true, "Username is required"],
     minLength: [3, "Username length must be a minimum of 3 characters."],
+    lowercase: true,
   },
 
   password: {

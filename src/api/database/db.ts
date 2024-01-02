@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 class Database {
   public connect(): void {
-    const url = process.env.MONGO_URL;
+    const url: string = process.env.MONGO_URL as string;
 
-    mongoose.connect(url!, {
+    mongoose.connect(url, {
       dbName: "ts-oop",
     });
 

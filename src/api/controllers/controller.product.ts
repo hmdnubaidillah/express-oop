@@ -7,7 +7,7 @@ import { ServiceProduct } from "../services/service.product.js";
 export class ControllerProduct extends ServiceProduct {
   async getAllProductsController(req: Request, res: Response): Promise<OutgoingMessage> {
     try {
-      const serviceResponds: ApiResponse = await super.getAllProductsService(req, res);
+      const serviceResponds: ApiResponse = await super.getAllProductsService(req);
 
       return res.status(serviceResponds.statusCode).json(serviceResponds);
     } catch (error: any) {
@@ -17,7 +17,7 @@ export class ControllerProduct extends ServiceProduct {
 
   async getProductController(req: Request, res: Response): Promise<OutgoingMessage> {
     try {
-      const serviceResponds: ApiResponse = await super.getProductService(req, res);
+      const serviceResponds: ApiResponse = await super.getProductService(req);
       return res.status(serviceResponds.statusCode).json(serviceResponds);
     } catch (error: any) {
       return res.status(error.statusCode).json(error);
@@ -26,7 +26,7 @@ export class ControllerProduct extends ServiceProduct {
 
   async searchProductController(req: Request, res: Response): Promise<OutgoingMessage> {
     try {
-      const serviceResponds: ApiResponse = await super.searchProductService(req, res);
+      const serviceResponds: ApiResponse = await super.searchProductService(req);
 
       return res.status(serviceResponds.statusCode).json(serviceResponds);
     } catch (error: any) {
@@ -37,7 +37,7 @@ export class ControllerProduct extends ServiceProduct {
 
   async createProductController(req: Request, res: Response): Promise<OutgoingMessage> {
     try {
-      const serviceResponds: ApiResponse = await super.createProductService(req, res);
+      const serviceResponds: ApiResponse = await super.createProductService(req);
 
       return res.status(serviceResponds.statusCode).json(serviceResponds);
     } catch (error: any) {
@@ -48,7 +48,7 @@ export class ControllerProduct extends ServiceProduct {
 
   async editProductController(req: Request, res: Response): Promise<OutgoingMessage> {
     try {
-      const serviceResponds: ApiResponse = await super.searchProductService(req, res);
+      const serviceResponds: ApiResponse = await super.editProductService(req);
 
       return res.status(serviceResponds.statusCode).json(serviceResponds);
     } catch (error: any) {
@@ -59,7 +59,7 @@ export class ControllerProduct extends ServiceProduct {
 
   async deleteProductController(req: Request, res: Response): Promise<OutgoingMessage> {
     try {
-      const serviceResponds: ApiResponse = await super.searchProductService(req, res);
+      const serviceResponds: ApiResponse = await super.deleteProductService(req);
 
       return res.status(serviceResponds.statusCode).json(serviceResponds);
     } catch (error: any) {

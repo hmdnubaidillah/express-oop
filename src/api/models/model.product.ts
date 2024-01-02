@@ -3,7 +3,9 @@ import { Schema, model } from "mongoose";
 const ProductSchema = new Schema({
   name: {
     type: String,
+    text: true,
     required: [true, "Product name is required"],
+    lowercase: true,
   },
 
   quantity: {
