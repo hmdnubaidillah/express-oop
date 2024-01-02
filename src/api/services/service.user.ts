@@ -6,7 +6,7 @@ import { hashPassword, comparePassword } from "../libs/lib.bcrypt.js";
 import { signToken } from "../libs/lib.jwt.js";
 
 export class ServiceUser {
-  async findUserService(req: Request, res: Response) {
+  async findUserService(req: Request) {
     try {
       const user = await User.findById(req.params.id);
 
@@ -17,28 +17,25 @@ export class ServiceUser {
     }
   }
 
-  async registerUserService(req: Request, res: Response): Promise<ApiResponse> {
+  async registerUserService(req: Request): Promise<ApiResponse> {
     try {
-      const hashedPassword = await hashPassword(req.body.password);
+      const existingUsers = await User.find();
 
-      const newUser = new User({ ...req.body, password: hashedPassword });
-
-      await newUser.save();
-
-      return Promise.resolve(apiResponse(status.CREATED, "User created", newUser));
-    } catch (error: any) {
-      let errMsg: string = "";
-
-      if (error.code === 11000) {
-        errMsg = `Duplicate username ${req.body.username} already exist`;
+      if (existingUsers.some((user) => user.username === req.body.username)) {
+        return apiResponse(status.INTERNAL_SERVER_ERROR, `Duplicate username ${req.body.username} already exist`);
       }
 
+      const hashedPassword = await hashPassword(req.body.password);
+      const newUser = new User({ ...req.body, password: hashedPassword });
+      await newUser.save();
+      return Promise.resolve(apiResponse(status.CREATED, "User created", newUser));
+    } catch (error: any) {
       console.log(error);
-      return Promise.reject(apiResponse(status.INTERNAL_SERVER_ERROR, errMsg));
+      return Promise.reject(apiResponse(status.INTERNAL_SERVER_ERROR || error.statusCode, error.message));
     }
   }
 
-  async userAuthService(req: Request, res: Response): Promise<ApiResponse> {
+  async userAuthService(req: Request): Promise<ApiResponse> {
     try {
       const { username, password } = req.body;
       const user = await User.findOne({ username });

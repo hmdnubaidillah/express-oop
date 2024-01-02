@@ -5,13 +5,9 @@ import { ServiceUser } from "../services/service.user.js";
 import { ApiResponse } from "../helpers/helper.apiResponse.js";
 
 export class ControllerUser extends ServiceUser {
-  constructor() {
-    super();
-  }
-
   async findUserController(req: Request, res: Response): Promise<OutgoingMessage> {
     try {
-      const serviceResponds: ApiResponse = await super.findUserService(req, res);
+      const serviceResponds: ApiResponse = await super.findUserService(req);
       return res.status(serviceResponds.statusCode).json(serviceResponds);
     } catch (error: any) {
       return res.status(error.statusCode).json(error);
@@ -20,7 +16,7 @@ export class ControllerUser extends ServiceUser {
 
   async registerUserController(req: Request, res: Response): Promise<OutgoingMessage> {
     try {
-      const serviceResponds: ApiResponse = await super.registerUserService(req, res);
+      const serviceResponds: ApiResponse = await super.registerUserService(req);
 
       return res.status(serviceResponds.statusCode).json(serviceResponds);
     } catch (error: any) {
@@ -30,7 +26,7 @@ export class ControllerUser extends ServiceUser {
 
   async authUserController(req: Request, res: Response): Promise<OutgoingMessage> {
     try {
-      const serviceResponds: ApiResponse = await super.userAuthService(req, res);
+      const serviceResponds: ApiResponse = await super.userAuthService(req);
 
       return res.status(serviceResponds.statusCode).json(serviceResponds);
     } catch (error: any) {

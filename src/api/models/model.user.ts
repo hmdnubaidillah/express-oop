@@ -1,5 +1,4 @@
 import { Schema, model } from "mongoose";
-import bcrypt from "bcrypt";
 
 const UserSchema = new Schema({
   firstname: {
@@ -16,7 +15,6 @@ const UserSchema = new Schema({
     type: String,
     required: [true, "Username is required"],
     minLength: [3, "Username length must be a minimum of 3 characters."],
-    unique: true,
   },
 
   password: {
